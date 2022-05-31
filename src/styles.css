@@ -1,1 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files 
+body {
+    background: url('./assets/Images/bg2.jpg');
+    background-size: cover;
+    object-fit: contain;
+}*/

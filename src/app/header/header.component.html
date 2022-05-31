@@ -4,16 +4,22 @@
             <a href="#" class="navbar-brand">Recipe Book</a>
         </div>
         <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav" >
-                <li routerLinkActive='active'><a routerLink="/recipes">Recipes</a></li>
+            <ul class="nav navbar-nav">
+                <li routerLinkActive='active' *ngIf="isAuthenticated"><a routerLink="/recipes">Recipes</a></li>
+                <li routerLinkActive="active" *ngIf="!isAuthenticated"><a [routerLink]="'/auth'"
+                        [queryParams]="{signUp:'createAccount'}" fragment="loadingPage">Authentication</a></li>
                 <li routerLinkActive='active'><a routerLink="/shopping-list">Shopping List</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" appDropdownDirective>
-                    <a style="cursor: pointer;" class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
+                <li>
+                    <a style="cursor:pointer;" *ngIf="isAuthenticated" (click)="onLogout()">Logout</a>
+                </li>
+                <li class="dropdown" appDropdownDirective *ngIf="isAuthenticated">
+                    <a style="cursor: pointer;" class="dropdown-toggle" role="button">Manage <span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a style="cursor:pointer;">Save Data</a></li>
-                        <li><a style="cursor:pointer;">Fetch Data</a></li>
+                        <li><a style="cursor:pointer;" (click)="onSaveData()">Save Data</a></li>
+                        <li><a style="cursor:pointer;" (click)="onFetchData()">Fetch Data</a></li>
                     </ul>
                 </li>
             </ul>

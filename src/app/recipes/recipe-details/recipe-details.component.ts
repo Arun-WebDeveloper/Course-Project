@@ -24,10 +24,16 @@ export class RecipeDetailsComponent implements OnInit {
   }
   onAddToShoppingList() {
     this.recipeService.addIngToShoppingList(this.food.ingredients)
+    this.router.navigate(['/shopping-list'],{queryParams:{toShoppingList:'itemsInShopping'},fragment:'loadingToShoppingPage'})
   }
   newEdit() {
     this.router.navigate(['edit'], { relativeTo: this.route })
     //alternate method:
     //this.router.navigate(['../', this.id, 'edit'], { relativeTo: this.route })
   }
+  onDelete(){
+    this.recipeService.deleteRecipe(this.id)
+    this.router.navigate(['/recipes'],{queryParams:{backToPage:'deletedRecipe'},fragment:'loadingBackToSelectRecipes'})
+  }
+  
 }

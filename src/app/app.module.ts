@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -16,12 +17,20 @@ import { ShoppingListService } from './core/services/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './Shared/loading-spinner.component';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgToastModule } from 'ng-angular-popup';
+import { AlertComponent } from './alert/alert.component';
+import { PlaceholderDirective } from './export files/placeholder.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DropdownDirective,
     HeaderComponent,
     RecipesComponent,
     RecipeDetailsComponent,
@@ -29,18 +38,27 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
     RecipeItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
+    AlertComponent,
+    PlaceholderDirective,
+    
 
-   
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgToastModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), 
   ],
-  providers: [RecipeService,ShoppingListService],
+  providers: [RecipeService, ShoppingListService, { provide: HTTP_INTERCEPTORS, multi: true, useClass: AuthInterceptor }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

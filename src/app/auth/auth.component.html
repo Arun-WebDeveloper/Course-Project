@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <!--<div class="alert alert-danger" *ngIf="error">
+            <h1>Error Occurred !</h1>
+            <p>{{error}}
+                Error Message: This Email already Exists in database please try Again !
+            </p>
+        </div>
+        <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>-->
+        <ng-template appPlaceholder></ng-template>
+        <div class="div" *ngIf="isLoading" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
+        <form class="center" #authForm=ngForm (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading">
+            <legend class="top">SignIn</legend>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input style="border-radius: 10px;" type="email" id="email" class="form-control" ngModel name="email"
+                    required email placeholder="Enter Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input style="border-radius: 10px;" type="password" id="password" class="form-control" ngModel
+                    name="password" required minlength="6" placeholder="Enter Password">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="!authForm.valid">
+                    {{ isLoginMode ? 'Login':'Sign Up'}}</button> |
+                <button type="button" class="btn btn-primary" (click)="onSwitchMode()">
+                    Switch to {{ isLoginMode ? 'Sign Up': 'Login'}}</button>
+            </div>
+            <br>
+
+        </form>
+    </div>
+</div>
